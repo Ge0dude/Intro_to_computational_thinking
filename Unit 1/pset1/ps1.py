@@ -32,7 +32,7 @@ def load_cows(filename):
 
 
 # Problem 1
-def greedy_cow_transport(cows,limit=10):
+def greedy_cow_transport(cows,limit):
     """
     Uses a greedy heuristic to determine an allocation of cows that attempts to
     minimize the number of spaceship trips needed to transport all the cows. The
@@ -54,8 +54,41 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    
+    cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+    counter = 0
+    storePos = 0
+    tripLimit = 0 
+    current = 0
+    
+    #max number of trips can't be greater than the number of cows
+    cowList = [[] for x in range(len(cows_sorted))]
+               
+    while counter < len(cows_sorted):
+        tripLimit = limit - current
+        if cows_sorted[counter][1] > limit:
+            counter += 1    
+        elif cows_sorted[counter][1] <= tripLimit :
+            cowList[storePos].append(cows_sorted[counter][0])
+            current += cows_sorted[counter][1]  
+            counter += 1
+        elif cows_sorted[counter][1] > tripLimit : #could do recursion at this step...
+            storePos += 1
+            current = 0
+            tripLimit = limit - current
+            if cows_sorted[counter][1] <= tripLimit :
+                cowList[storePos].append(cows_sorted[counter][0])
+                current += cows_sorted[counter][1]  
+                counter += 1
+            else:
+                counter += 1
+            
+    for x in cowList:
+        if x == []:
+            cowList.remove(x)
+            
+    return cowList
+    
 
 
 # Problem 2
@@ -108,7 +141,7 @@ lines to print the result of your problem.
 """
 
 cows = load_cows("ps1_cow_data.txt")
-limit=100
+limit=12
 print(cows)
 
 print(greedy_cow_transport(cows, limit))
@@ -116,7 +149,37 @@ print(brute_force_cow_transport(cows, limit))
 
 cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
 counter = 0
-current = cows_sorted[counter][1]
-shipList = [[for x in len(cows_sorted)]for x in 1]
+storePos = 0
+tripLimit = 0 
+current = 0
+
+#max number of trips can't be greater than the number of cows
+cowList = [[] for x in range(len(cows_sorted))]
+
 while counter < len(cows_sorted):
+    tripLimit = limit - current
+    if cows_sorted[counter][1] > limit:
+        counter += 1    
+    elif cows_sorted[counter][1] <= tripLimit :
+        cowList[storePos].append(cows_sorted[counter][0])
+        current += cows_sorted[counter][1]  
+        counter += 1
+    elif cows_sorted[counter][1] > tripLimit : #could do recursion at this step...
+        storePos += 1
+        current = 0
+        tripLimit = limit - current
+        if cows_sorted[counter][1] <= tripLimit :
+            cowList[storePos].append(cows_sorted[counter][0])
+            current += cows_sorted[counter][1]  
+            counter += 1
+        else:
+            counter += 1
+            
+for x in cowList:
+    if x == []:
+        cowList.remove(x)
+        
+        
+        
+    
     
