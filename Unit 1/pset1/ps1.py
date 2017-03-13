@@ -114,4 +114,9 @@ print(cows)
 print(greedy_cow_transport(cows, limit))
 print(brute_force_cow_transport(cows, limit))
 
-
+cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+counter = 0
+current = cows_sorted[counter][1]
+shipList = [[for x in len(cows_sorted)]for x in 1]
+while counter < len(cows_sorted):
+    
