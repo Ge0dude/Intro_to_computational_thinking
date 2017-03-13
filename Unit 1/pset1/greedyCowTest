@@ -6,5 +6,52 @@ Created on Mon Mar 13 16:59:26 2017
 @author: brendontucker
 
 greedy function tests
+
+really need to do this recursively, actually, should be much more efficent 
 """
 
+cows = {'MooMoo': 85, 'Muscles': 65, 'Polaris': 20, 'Clover': 5, 'Lotus': 10, 'Louis': 45,
+ 'Horns': 50, 'Milkshake': 75, 'Patches': 60, 'Miss Bella': 15}
+
+limit = 100
+
+cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+counter = 0
+innerCounter = 0
+storePos = 0
+tripLimit = 0 
+current = 0
+
+#max number of trips can't be greater than the number of cows
+cowList = [[] for x in range(len(cows_sorted))]
+
+
+           
+while counter < len(cows_sorted):
+    tripLimit = limit - current
+    if cows_sorted[counter][1] > limit:
+        counter += 1
+    elif cows_sorted[counter][1] <= tripLimit :
+        cowList[storePos].append(cows_sorted[counter][0])
+        current += cows_sorted[counter][1]  
+        counter += 1
+    tripLimit = limit - current
+    if tripLimit != limit:
+        innerCounter += counter #equivalent to this? elif cows_sorted[counter][1] > tripLimit :
+        while innerCounter < len(cows_sorted):
+            if cows_sorted[innerCounter][1] > tripLimit :
+                innerCounter += 1
+            elif cows_sorted[innerCounter][1] <= tripLimit :
+                cowList[storePos].append(cows_sorted[counter][0])
+                current += cows_sorted[counter][1]  
+                innerCounter += 1
+            else:
+                break
+    else:
+        counter += 1
+        storePos += 1
+           
+            
+for x in cowList:
+    if x == []:
+        cowList.remove(x)
