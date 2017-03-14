@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 14 12:09:28 2017
+
+@author: brendontucker
+"""
+
+cows = {'MooMoo': 85, 'Muscles': 65, 'Polaris': 20, 'Clover': 5, 'Lotus': 10, 'Louis': 45,
+ 'Horns': 50, 'Milkshake': 75, 'Patches': 60, 'Miss Bella': 15}
+
+limit = 100
+
+cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+
+#max number of trips can't be greater than the number of cows
+cowList = [[] for x in range(len(cows_sorted))]
+tripWeights = [[] for x in range(len(cows_sorted))]
+cowNames = [[] for x in range(len(cows_sorted))]        
+cowWeights = [[] for x in range(len(cows_sorted))]
+currentWeight = 0    
+checkWeight = 0      
+position = 0
+
+
+
+counter = 0           
+while counter < len(cows_sorted):
+    cowNames[counter].append(cows_sorted[counter][0])
+    counter += 1
+counter = 0           
+while counter < len(cows_sorted):
+    cowWeights[counter].append(cows_sorted[counter][1])
+    counter += 1
+
+
+
+#fuck it, I'm going to just use a while loop
+
+counter = 0 
+while counter < len(cowWeights):
+    currentWeight = sum(tripWeights[position])    
+    checkWeight = limit - currentWeight
+    if checkWeight <= 0:
+        position += 1        
+    if cowWeights[counter][0] <= checkWeight:
+        tripWeights[position].append(cowWeights[counter][0])
+        cowWeights.pop([counter][0])
+        cowList[position].append(cowNames[counter][0])
+        counter += 1
+    else:
+        counter += 1
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+'''    
+for i in range(len(cowWeights)):
+    currentWeight = sum(tripWeights[position])    
+    checkWeight = limit - currentWeight
+    if checkWeight <= 0:
+        position += 1 #think I need a break here?
+    if cowWeights[i][0] <= checkWeight:
+        tripWeights[position].append(cowWeights[i][0])
+        cowList[position].append(cowNames[i][0])
+'''        
+        
+#test here to see if continue works like I htink it will
+'''
+for i in range(len(cowWeights)):
+    currentWeight = sum(tripWeights[position])    
+    checkWeight = limit - currentWeight
+    if cowList[position] == []:
+        pass
+    else: 
+    if checkWeight <= 0:
+        position += 1#think I need a break here?
+    if cowWeights[i][0] <= checkWeight:
+        tripWeights[position].append(cowWeights[i][0])
+        cowList[position].append(cowNames[i][0])
+        
+'''

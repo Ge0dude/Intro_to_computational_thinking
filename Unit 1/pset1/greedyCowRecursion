@@ -44,7 +44,7 @@ while counter < len(cows_sorted):
 
 for x in cowWeights:
     if x[0] > limit:
-        cowWeights = cowWeights[x:]
+        cowWeights = cowWeights[cowWeights.index(x):]
         #need to recursively call right here
         #this step should prune all the front end memebers that are too large
     currentWeight = sum(tripWeights[position])    
@@ -59,3 +59,43 @@ for x in cowWeights:
     #else:
         #do a recursive call here?
 
+def greedy_cow_transport(cows,limit):
+    limit = 100
+
+    cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+    
+    #max number of trips can't be greater than the number of cows
+    cowList = [[] for x in range(len(cows_sorted))]
+    tripWeights = [[] for x in range(len(cows_sorted))]
+    cowNames = [[] for x in range(len(cows_sorted))]        
+    cowWeights = [[] for x in range(len(cows_sorted))]
+    currentWeight = 0    
+    checkWeight = 1      
+    position = 0
+    
+    
+    counter = 0           
+    while counter < len(cows_sorted):
+        cowNames[counter].append(cows_sorted[counter][0])
+        counter += 1
+    counter = 0           
+    while counter < len(cows_sorted):
+        cowWeights[counter].append(cows_sorted[counter][1])
+        counter += 1
+    
+    for x in cowWeights:
+        if x[0] > limit:
+            cowWeights = cowWeights[cowWeights.index(x):] #need to do the index fix here
+            
+            #need to recursively call right here
+            #this step should prune all the front end memebers that are too large
+        currentWeight = sum(tripWeights[position])    
+        checkWeight = limit - currentWeight
+        if checkWeight <= 0:
+            position += 1#should only ever need to do this once--no recursion needed
+        currentWeight = sum(tripWeights[position])    
+        checkWeight = limit - currentWeight   
+        if x[0] <= checkWeight:
+            cowList[position].append(cowNames[cowWeights.index(x)])
+            tripWeights[position].append(cowWeights[cowWeights.index(x)][0])
+    return cowList
