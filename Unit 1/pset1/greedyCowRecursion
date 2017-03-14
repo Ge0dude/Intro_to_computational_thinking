@@ -37,8 +37,13 @@ while counter < len(cows_sorted):
     cowWeights[counter].append(cows_sorted[counter][1])
     counter += 1
 #for loop doesn't slice these things correctly, maybe I need to break cows_sorted down even more?
+
+
+
+
+
 for x in cowWeights:
-    if cowWeights > limit:
+    if x[0] > limit:
         cowWeights = cowWeights[x:]
         #need to recursively call right here
         #this step should prune all the front end memebers that are too large
@@ -46,9 +51,9 @@ for x in cowWeights:
     if checkWeight <= 0:
         position += 1#should only ever need to do this once--no recursion needed
     weightChecker(tripWeights = tripWeights, limit = limit, position = position )    
-    if cowWeights[x] <= checkWeight:
-        cowList[position].append(cows_sorted[x][0])
-        tripWeights[position].append(cows_sorted[x][1])
-    else:
+    if x[0] <= checkWeight:
+        cowList[position].append(cowNames[x])
+        tripWeights[position].append(cowWeights[x])
+    #else:
         #do a recursive call here?
         
