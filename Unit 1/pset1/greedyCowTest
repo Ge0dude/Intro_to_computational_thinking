@@ -36,7 +36,9 @@ while counter < len(cows_sorted):
         current += cows_sorted[counter][1]  
         counter += 1
     tripLimit = limit - current
-    if tripLimit != limit:
+    if tripLimit <= 0 :
+        counter += 1
+    elif tripLimit != limit:
         innerCounter += counter #equivalent to this? elif cows_sorted[counter][1] > tripLimit :
         while innerCounter < len(cows_sorted):
             if cows_sorted[innerCounter][1] > tripLimit :

@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar 13 18:09:23 2017
+
+@author: brendontucker
+"""
+
+cows = {'MooMoo': 85, 'Muscles': 65, 'Polaris': 20, 'Clover': 5, 'Lotus': 10, 'Louis': 45,
+ 'Horns': 50, 'Milkshake': 75, 'Patches': 60, 'Miss Bella': 15}
+
+limit = 100
+
+cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+
+#max number of trips can't be greater than the number of cows
+cowList = [[] for x in range(len(cows_sorted))]
+tripWeights = [[] for x in range(len(cows_sorted))]
+currentWeight = 0    
+checkWeight = 0       
+position = 0
+           
+for x in cows_sorted:
+    if cows_sorted[x][1] > limit:
+        cows_sorted = cows_sorted[1:]
+        #this step should prune all the front end memebers that are too large
+    currentWeight = sum(tripWeights[position])    #break this section up into a function that returns checkWeight?
+    checkWeight = limit - currentWeight
+    if checkWeight <= 0:
+        position += 1
+    elif cows_sorted[x][1] <= checkWeight:
+        cowList[position].append(cows_sorted[x][0])
+        tripWeights[position].append(cows_sorted[x][1])
+        position += 1
