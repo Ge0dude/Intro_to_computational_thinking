@@ -19,7 +19,7 @@ tripWeights = [[] for x in range(len(cows_sorted))]
 cowNames = [[] for x in range(len(cows_sorted))]        
 cowWeights = [[] for x in range(len(cows_sorted))]
 currentWeight = 0    
-checkWeight = 0       
+checkWeight = 1      
 position = 0
 
 def weightChecker(tripWeights, limit, position):#this will have to be above 'main' function
@@ -47,13 +47,15 @@ for x in cowWeights:
         cowWeights = cowWeights[x:]
         #need to recursively call right here
         #this step should prune all the front end memebers that are too large
-    weightChecker(tripWeights = tripWeights, limit = limit, position = position )
+    currentWeight = sum(tripWeights[position])    
+    checkWeight = limit - currentWeight
     if checkWeight <= 0:
         position += 1#should only ever need to do this once--no recursion needed
-    weightChecker(tripWeights = tripWeights, limit = limit, position = position )    
+    currentWeight = sum(tripWeights[position])    
+    checkWeight = limit - currentWeight   
     if x[0] <= checkWeight:
-        cowList[position].append(cowNames[x])
-        tripWeights[position].append(cowWeights[x])
+        cowList[position].append(cowNames[cowWeights.index(x)])
+        tripWeights[position].append(cowWeights[cowWeights.index(x)][0])
     #else:
         #do a recursive call here?
-        
+
