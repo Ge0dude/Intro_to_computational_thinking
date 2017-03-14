@@ -38,18 +38,23 @@ while counter < len(cows_sorted):
 #fuck it, I'm going to just use a while loop
 
 counter = 0 
-while counter < len(cowWeights):
-    currentWeight = sum(tripWeights[position])    
-    checkWeight = limit - currentWeight
-    if checkWeight <= 0:
-        position += 1        
-    if cowWeights[counter][0] <= checkWeight:
-        tripWeights[position].append(cowWeights[counter][0])
-        cowWeights.pop([counter][0])
-        cowList[position].append(cowNames[counter][0])
-        counter += 1
-    else:
-        counter += 1
+counter2 = 0
+while counter2 < len(cowList):
+    counter = 0
+    while counter < len(cowWeights):
+        currentWeight = sum(tripWeights[position]) + cowWeights[counter] #this is now more like proposed weight    
+        checkWeight = limit - currentWeight
+        if checkWeight <= 0:
+            break      
+        if cowWeights[counter][0] <= checkWeight:
+            tripWeights[position].append(cowWeights[counter][0])
+            cowWeights.pop([counter][0])
+            cowList[position].append(cowNames[counter][0])
+            cowNames.pop([counter][0])
+            counter += 1
+        else:
+            counter += 1
+    counter2 += 1
     
     
 
