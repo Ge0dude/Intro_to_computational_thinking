@@ -56,39 +56,58 @@ def greedy_cow_transport(cows,limit):
     """
     
     cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
-    counter = 0
-    storePos = 0
-    tripLimit = 0 
-    current = 0
-    
+
     #max number of trips can't be greater than the number of cows
     cowList = [[] for x in range(len(cows_sorted))]
-               
+    tripWeights = [[] for x in range(len(cows_sorted))]
+    cowNames = [[] for x in range(len(cows_sorted))]        
+    cowWeights = [[] for x in range(len(cows_sorted))]      
+    position = 0
+
+
+
+    counter = 0           
     while counter < len(cows_sorted):
-        tripLimit = limit - current
-        if cows_sorted[counter][1] > limit:
-            counter += 1    
-        elif cows_sorted[counter][1] <= tripLimit :
-            cowList[storePos].append(cows_sorted[counter][0])
-            current += cows_sorted[counter][1]  
-            counter += 1
-        elif cows_sorted[counter][1] > tripLimit : #could do recursion at this step...
-            storePos += 1
-            current = 0
-            tripLimit = limit - current
-            if cows_sorted[counter][1] <= tripLimit :
-                cowList[storePos].append(cows_sorted[counter][0])
-                current += cows_sorted[counter][1]  
+        cowNames[counter].append(cows_sorted[counter][0])
+        counter += 1
+    counter = 0           
+    while counter < len(cows_sorted):
+        cowWeights[counter].append(cows_sorted[counter][1])
+        counter += 1
+
+
+
+#fuck it, I'm going to just use a while loop
+
+    counter = 0 
+    counter2 = 0
+    while counter2 < len(cowList):
+        counter = 0
+        while counter < len(cowWeights):
+            currentWeight = sum(tripWeights[position]) #+ cowWeights[counter][0] #this is now more like proposed weight    
+            checkWeight = limit - currentWeight
+            if checkWeight <= 0:
                 counter += 1
+                continue#not position, but do need a change here
+            if cowWeights[counter][0] <= checkWeight:
+                tripWeights[position].append(cowWeights[counter][0])
+                cowWeights.pop([counter][0])
+                cowList[position].append(cowNames[counter][0])
+                cowNames.pop([counter][0])
+            #counter += 1 #need to account for when the list is popped to len 1
             else:
                 counter += 1
-            
-    for x in cowList:
-        if x == []:
-            cowList.remove(x)
+        position += 1
+        counter2 += 1
+    
+    counter = 0 
+    while counter < len(cowList):
+        if cowList[counter] == []:
+            cowList.pop(counter)
+        else:
+            counter +=1 
             
     return cowList
-    
 
 
 # Problem 2
@@ -147,39 +166,3 @@ print(cows)
 print(greedy_cow_transport(cows, limit))
 print(brute_force_cow_transport(cows, limit))
 
-cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
-counter = 0
-storePos = 0
-tripLimit = 0 
-current = 0
-
-#max number of trips can't be greater than the number of cows
-cowList = [[] for x in range(len(cows_sorted))]
-
-while counter < len(cows_sorted):
-    tripLimit = limit - current
-    if cows_sorted[counter][1] > limit:
-        counter += 1    
-    elif cows_sorted[counter][1] <= tripLimit :
-        cowList[storePos].append(cows_sorted[counter][0])
-        current += cows_sorted[counter][1]  
-        counter += 1
-    elif cows_sorted[counter][1] > tripLimit : #could do recursion at this step...
-        storePos += 1
-        current = 0
-        tripLimit = limit - current
-        if cows_sorted[counter][1] <= tripLimit :
-            cowList[storePos].append(cows_sorted[counter][0])
-            current += cows_sorted[counter][1]  
-            counter += 1
-        else:
-            counter += 1
-            
-for x in cowList:
-    if x == []:
-        cowList.remove(x)
-        
-        
-        
-    
-    

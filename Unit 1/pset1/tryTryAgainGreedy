@@ -6,8 +6,8 @@ Created on Tue Mar 14 12:09:28 2017
 @author: brendontucker
 """
 
-cows = {'MooMoo': 85, 'Muscles': 65, 'Polaris': 20, 'Clover': 5, 'Lotus': 10, 'Louis': 45,
- 'Horns': 50, 'Milkshake': 75, 'Patches': 60, 'Miss Bella': 15}
+cows = {'Daisy': 50, 'Lilly': 24, 'Buttercup': 72, 'Patches': 12, 'Rose': 50,
+        'Willow': 35, 'Coco': 10, 'Abby': 38, 'Dottie': 85, 'Betsy': 65}
 
 limit = 100
 
@@ -17,9 +17,7 @@ cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
 cowList = [[] for x in range(len(cows_sorted))]
 tripWeights = [[] for x in range(len(cows_sorted))]
 cowNames = [[] for x in range(len(cows_sorted))]        
-cowWeights = [[] for x in range(len(cows_sorted))]
-currentWeight = 0    
-checkWeight = 0      
+cowWeights = [[] for x in range(len(cows_sorted))]      
 position = 0
 
 
@@ -42,20 +40,28 @@ counter2 = 0
 while counter2 < len(cowList):
     counter = 0
     while counter < len(cowWeights):
-        currentWeight = sum(tripWeights[position]) + cowWeights[counter] #this is now more like proposed weight    
+        currentWeight = sum(tripWeights[position]) #+ cowWeights[counter][0] #this is now more like proposed weight    
         checkWeight = limit - currentWeight
         if checkWeight <= 0:
-            break      
+            counter += 1
+            continue#not position, but do need a change here
         if cowWeights[counter][0] <= checkWeight:
             tripWeights[position].append(cowWeights[counter][0])
             cowWeights.pop([counter][0])
             cowList[position].append(cowNames[counter][0])
             cowNames.pop([counter][0])
-            counter += 1
+            #counter += 1 #need to account for when the list is popped to len 1
         else:
             counter += 1
+    position += 1
     counter2 += 1
     
+counter = 0 
+while counter < len(cowList):
+    if cowList[counter] == []:
+        cowList.pop(counter)
+    else:
+        counter +=1        
     
 
 
