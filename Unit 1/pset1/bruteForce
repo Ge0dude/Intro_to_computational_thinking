@@ -40,6 +40,8 @@ chooseVal = 0 #stores choose value for highest position
 entryVal = 0 #stores entryCount position 
 cowVAl = 0 #stores the cow used in the decision 
 
+
+#might need to make this whole loop part of a larger function 
 while chooseCount < len(comboList):
     entryCount = 0
     while entryCount < len(comboList[chooseCount]):
@@ -47,8 +49,12 @@ while chooseCount < len(comboList):
         weightTotal = 0
         while cowCount < len(comboList[chooseCount][entryCount]):
             weightTotal += comboList[chooseCount][entryCount][cowCount][cowWeight]
-            if weightTotal > bestWeight and <= limit:
-                bestWeight = weightTotal 
+            if weightTotal > bestWeight:
+                if weightTotal <= limit:
+                    bestWeight = weightTotal 
+                    chooseVal = chooseCount
+                    entryVal = entryCount
+                
             cowCount += 1
         entryCount += 1
     chooseCount += 1
