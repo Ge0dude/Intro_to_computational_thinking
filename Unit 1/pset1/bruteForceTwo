@@ -8,3 +8,26 @@ Created on Sun Mar 19 09:44:25 2017
 going to try and follow course method on this one with some OOP
 """
 
+cows = {'Boo': 20, 'Horns': 25, 'MooMoo': 50, 'Lotus': 40, 'Miss Bella': 25, 'Milkshake': 40}
+
+def getWeight(cowName):
+    cowWeight = cows[cowName]
+    return cowWeight
+
+cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+
+#max number of trips can't be greater than the number of cows
+cowList = [[] for x in range(len(cows_sorted))]
+tripWeights = [[] for x in range(len(cows_sorted))]
+cowNames = [[] for x in range(len(cows_sorted))]        
+cowWeights = [[] for x in range(len(cows_sorted))]
+               
+counter = 0           
+while counter < len(cows_sorted):
+    cowNames[counter].append(cows_sorted[counter][0])
+    counter += 1
+counter = 0           
+while counter < len(cows_sorted):
+    cowWeights[counter].append(cows_sorted[counter][1])
+    counter += 1
+    

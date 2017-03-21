@@ -11,8 +11,8 @@ situations where it won't be.
 """
 
 import itertools 
-from itertools import combinations
 
+limit= 100
 cows = {'Boo': 20, 'Horns': 25, 'MooMoo': 50, 'Lotus': 40, 'Miss Bella': 25, 'Milkshake': 40}
 
 cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
@@ -21,4 +21,34 @@ comboList = list()
 for r in range(len(cows_sorted)):
     list1 = list(itertools.combinations(cows_sorted, r))
     comboList.append(list1)    
-    
+
+'''five main ways of indexing our combination list '''
+chooseCount = 1 # number of cows in each trip, alwasy starts as one because 
+#comboList includeds the empty set as entry zero which we want to skip
+entryCount = 0 #
+cowCount = 0 # particular cow and weight 
+cowName = 0
+cowWeight = 1 #cow data comes in pairs, with 0 related to name and
+# 1 related to weight 
+
+weightTotal = 0 #current choice weight total
+bestWeight = 0 #best weight thus far
+
+
+'''Maybe do a helper function for this just to practice using helper functions?'''
+chooseVal = 0 #stores choose value for highest position
+entryVal = 0 #stores entryCount position 
+cowVAl = 0 #stores the cow used in the decision 
+
+while chooseCount < len(comboList):
+    entryCount = 0
+    while entryCount < len(comboList[chooseCount]):
+        cowCount = 0
+        weightTotal = 0
+        while cowCount < len(comboList[chooseCount][entryCount]):
+            weightTotal += comboList[chooseCount][entryCount][cowCount][cowWeight]
+            if weightTotal > bestWeight and <= limit:
+                bestWeight = weightTotal 
+            cowCount += 1
+        entryCount += 1
+    chooseCount += 1
