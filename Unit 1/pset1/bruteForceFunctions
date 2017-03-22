@@ -9,9 +9,6 @@ Created on Tue Mar 21 16:03:35 2017
 limit= 100
 cows = {'Boo': 20, 'Horns': 25, 'MooMoo': 50, 'Lotus': 40, 'Miss Bella': 25, 'Milkshake': 40}
 
-cowcopy = cows
-
-
 def comboGenerator(cowData):
     #assumes cowData is a Python dict
     import itertools 
@@ -70,7 +67,29 @@ def tripSearch(comboList, limitValue):
         
     return nameList
     
+outputList = [[]for x in range(len(cows))] 
+    
 '''gotta build a new dictionary here'''
+
+
+def dataSlicer(cowList):
+    #removes necessary cows from the most recent trip generated
+    #generates a new dictionary 
+    keyList = []
+    valueList = []
+    for x in outputList:
+        cowList.append(x)
+    for x in cows.keys():
+        if x in cowList:
+            continue
+        else:
+            keyList.append(x)
+            valueList.append(cows[x])
+            
+    newDictionary = dict(zip(keyList, valueList))
+    
+    return newDictionary
+'''
 def dataSlicer(cowList):
     #removes necessary cows from the most recent trip generated
     #generates a new dictionary 
@@ -79,6 +98,8 @@ def dataSlicer(cowList):
     for x in cows.keys():
         if x in cowList:
             continue 
+        elif x in outputList:
+            continue
         else:
             keyList.append(x)
             valueList.append(cows[x])
@@ -86,9 +107,8 @@ def dataSlicer(cowList):
     newDictionary = dict(zip(keyList, valueList))
     
     return newDictionary
-
+'''
     
-outputList = [[]for x in range(len(cows))]    
 def bruteForce(cowDict, limit):
     #assumes a dictionary with cow names and weights, and a limit as an integer
     tripList = tripSearch(comboGenerator(cowDict), limit)
@@ -101,7 +121,21 @@ def bruteForce(cowDict, limit):
     newDict = dataSlicer(tripList)
     return newDict
     
-    
             
                 
-    
+'''
+def bruteForce(cowDict, limit):
+    #assumes a dictionary with cow names and weights, and a limit as an integer
+    tripList = tripSearch(comboGenerator(cowDict), limit)
+    for x in outputList:
+        if x == []:
+            outputList.insert(outputList.index(x), tripList)#gotta put it in
+            #the right spot, append put it in teh last position
+            #throwing off the order
+            break
+    newDict = dataSlicer(tripList)
+    if len(newDict) > 0:
+        bruteForce(newDict, limit)
+    else:
+        return outputList
+'''   
