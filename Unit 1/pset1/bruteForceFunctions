@@ -86,10 +86,21 @@ def dataSlicer(cowList):
     newDictionary = dict(zip(keyList, valueList))
     
     return newDictionary
+
     
+outputList = [[]for x in range(len(cows))]    
 def bruteForce(cowDict, limit):
     #assumes a dictionary with cow names and weights, and a limit as an integer
-    tripSearch(comboGenerator(cowDict), limit)
+    tripList = tripSearch(comboGenerator(cowDict), limit)
+    for x in outputList:
+        if x == []:
+            outputList.insert(outputList.index(x), tripList)#gotta put it in
+            #the right spot, append put it in teh last position
+            #throwing off the order
+            break
+    newDict = dataSlicer(tripList)
+    return newDict
+    
     
             
                 
