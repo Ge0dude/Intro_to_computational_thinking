@@ -77,14 +77,17 @@ def dataSlicer(cowList):
     #generates a new dictionary 
     keyList = []
     valueList = []
-    #for x in outputList:
-        #cowList.append(x)
-    for y in cows.keys():
-        if y in cowList:
+    checkerList = []
+    for x in outputList:
+        for y in x:
+            checkerList.append(y)
+            
+    for x in cows.keys():
+        if x in checkerList:
             continue
         else:
-            keyList.append(y)
-            valueList.append(cows[y])
+            keyList.append(x)
+            valueList.append(cows[x])
             
     newDictionary = dict(zip(keyList, valueList))
     
@@ -103,7 +106,7 @@ def bruteForce(cowDict, limit):
     newDict = dataSlicer(tripList)
     return newDict    
 
-    
+'''    
 tripList = tripSearch(comboGenerator(cows), limit)
 for x in outputList:
     if x == []:
@@ -115,17 +118,20 @@ for x in outputList:
     
 keyList = []
 valueList = []
+checkerList = []
+for x in outputList:
+    for y in x:
+        checkerList.append(y)
+        
 for x in cows.keys():
-    for y in outputList:
-        for z in y:
-            if x in z:
-                continue
-            else:
-                keyList.append(z)
-                valueList.append(cows[z])
+    if x in checkerList:
+        continue
+    else:
+        keyList.append(x)
+        valueList.append(cows[x])
             
 #tripList.append(x) #tripList = cowList in function 
- 
+''' 
 
 
 
