@@ -104,7 +104,10 @@ def bruteForce(cowDict, limit):
             #throwing off the order
             break
     newDict = dataSlicer(tripList)
-    return newDict    
+    if len(newDict) > 0:
+        bruteForce(newDict, limit)
+    else:
+        return outputList
 
     
     
@@ -115,7 +118,6 @@ def bruteForce(cowDict, limit):
     
     
     
-tester = comboGenerator({'Boo': 20, 'Lotus': 40, 'Milkshake': 40})    
 '''    
 tripList = tripSearch(comboGenerator(cows), limit)
 for x in outputList:
