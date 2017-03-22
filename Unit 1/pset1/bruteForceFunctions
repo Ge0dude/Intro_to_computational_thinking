@@ -16,7 +16,7 @@ def comboGenerator(cowData):
     cows_sorted = sorted(cowData.items(), key=lambda x: x[1], reverse = True)
 
     comboList = list()
-    for r in range(len(cows_sorted)):
+    for r in range(len(cows_sorted) + 1):
         list1 = list(itertools.combinations(cows_sorted, r))
         comboList.append(list1)
         
@@ -106,6 +106,16 @@ def bruteForce(cowDict, limit):
     newDict = dataSlicer(tripList)
     return newDict    
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+tester = comboGenerator({'Boo': 20, 'Lotus': 40, 'Milkshake': 40})    
 '''    
 tripList = tripSearch(comboGenerator(cows), limit)
 for x in outputList:

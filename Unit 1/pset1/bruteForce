@@ -18,7 +18,7 @@ cows = {'Boo': 20, 'Horns': 25, 'MooMoo': 50, 'Lotus': 40, 'Miss Bella': 25, 'Mi
 cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
 
 comboList = list()
-for r in range(len(cows_sorted)):
+for r in range(len(cows_sorted) + 1):
     list1 = list(itertools.combinations(cows_sorted, r))
     comboList.append(list1)    
 
