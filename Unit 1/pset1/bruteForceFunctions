@@ -9,14 +9,88 @@ Created on Tue Mar 21 16:03:35 2017
 limit= 100
 cows = {'Boo': 20, 'Horns': 25, 'MooMoo': 50, 'Lotus': 40, 'Miss Bella': 25, 'Milkshake': 40}
 
-def comboGenerator():
+cowcopy = cows
+
+
+def comboGenerator(cowData):
+    #assumes cowData is a Python dict
     import itertools 
     
-    cows_sorted = sorted(cows.items(), key=lambda x: x[1], reverse = True)
+    cows_sorted = sorted(cowData.items(), key=lambda x: x[1], reverse = True)
 
     comboList = list()
     for r in range(len(cows_sorted)):
         list1 = list(itertools.combinations(cows_sorted, r))
         comboList.append(list1)
         
-    return cows_sorted
+    return comboList
+    
+def tripSearch(comboList, limitValue):
+    chooseCount = 1 # number of cows in each trip, alwasy starts as one because 
+    #comboList includeds the empty set as entry zero which we want to skip
+    entryCount = 0 #
+    cowCount = 0 # particular cow and weight 
+    cowName = 0
+    cowWeight = 1 #cow data comes in pairs, with 0 related to name and
+    # 1 related to weight 
+    
+    weightTotal = 0 #current choice weight total
+    bestWeight = 0 #best weight thus far
+    
+    
+    '''Maybe do a helper function for this just to practice using helper functions?'''
+    chooseVal = 0 #stores choose value for highest position
+    entryVal = 0 #stores entryCount position 
+    #cowVAl = 0 #stores the cow used in the decision 
+    
+    
+    #might need to make this whole loop part of a larger function 
+    while chooseCount < len(comboList):
+        entryCount = 0
+        while entryCount < len(comboList[chooseCount]):
+            cowCount = 0
+            weightTotal = 0
+            while cowCount < len(comboList[chooseCount][entryCount]):
+                weightTotal += comboList[chooseCount][entryCount][cowCount][cowWeight]
+                if weightTotal > bestWeight:
+                    if weightTotal <= limitValue:
+                        bestWeight = weightTotal 
+                        chooseVal = chooseCount
+                        entryVal = entryCount
+                    
+                cowCount += 1
+            entryCount += 1
+        chooseCount += 1
+        
+    nameList = []
+    nameCounter = 0
+    while nameCounter < len(comboList[chooseVal][entryVal]):
+        nameList.append(comboList[chooseVal][entryVal][nameCounter][0])
+        nameCounter += 1
+        
+    return nameList
+    
+'''gotta build a new dictionary here'''
+def dataSlicer(cowList):
+    #removes necessary cows from the most recent trip generated
+    #generates a new dictionary 
+    keyList = []
+    valueList = []
+    for x in cows.keys():
+        if x in cowList:
+            continue 
+        else:
+            keyList.append(x)
+            valueList.append(cows[x])
+            
+    newDictionary = dict(zip(keyList, valueList))
+    
+    return newDictionary
+    
+def bruteForce(cowDict, limit):
+    #assumes a dictionary with cow names and weights, and a limit as an integer
+    tripSearch(comboGenerator(cowDict), limit)
+    
+            
+                
+    

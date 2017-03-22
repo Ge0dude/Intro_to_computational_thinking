@@ -58,3 +58,25 @@ while chooseCount < len(comboList):
             cowCount += 1
         entryCount += 1
     chooseCount += 1
+    
+nameList = []
+nameCounter = 0
+while nameCounter < len(comboList[chooseVal][entryVal]):
+    nameList.append(comboList[chooseVal][entryVal][nameCounter][0])
+    nameCounter += 1
+    
+#have to store this to to the final output somehow
+
+
+keyList = []
+valueList = []
+for x in cows.keys():
+    if x in nameList:
+        continue 
+    else:
+        keyList.append(x)
+        valueList.append(cows[x])
+        
+newDictionary = dict(zip(keyList, valueList))
+
+outputList = [[]for x in range(len(cows))]
