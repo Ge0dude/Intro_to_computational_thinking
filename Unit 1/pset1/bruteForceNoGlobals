@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar 21 16:03:35 2017
+Created on Thu Mar 23 09:53:15 2017
 
 @author: brendontucker
 """
@@ -110,23 +110,3 @@ def brute_force_cow_transport(cowDict, limit):
         return [tripList, brute_force_cow_transport(newDict, limit)]
     else:
         return tripList        
-
-#def outputCleaner(tripList):
-
-        
-        '''   
-def brute_force_cow_transport(cowDict, limit):
-    #assumes a dictionary with cow names and weights, and a limit as an integer
-    tripList = tripSearch(comboGenerator(cowDict), limit)
-    for x in outputList:
-        if x == []:
-            outputList.insert(outputList.index(x), tripList)#gotta put it in
-            #the right spot, append put it in teh last position
-            #throwing off the order
-            break
-    newDict = dataSlicer(tripList)
-    if len(newDict) > 0:
-        brute_force_cow_transport(newDict, limit)
-    else:
-        return bruteForceOutput(outputList)
-'''
