@@ -67,7 +67,7 @@ def tripSearch(comboList, limitValue):
         
     return nameList
     
-#outputList = [[]for x in range(len(cows))] 
+outputList = [[]for x in range(len(cows))] 
     
 '''trying to define outputList locally only right now'''
 
@@ -102,19 +102,8 @@ def bruteForceOutput(outputList):
         else:
             outputCounter += 1
 
-def brute_force_cow_transport(cowDict, limit):
-    #assumes a dictionary with cow names and weights, and a limit as an integer
-    tripList = tripSearch(comboGenerator(cowDict), limit)
-    newDict = dataSlicer(tripList)
-    if len(newDict) > 0:
-        return [tripList, brute_force_cow_transport(newDict, limit)]
-    else:
-        return tripList        
 
-#def outputCleaner(tripList):
-
-        
-        '''   
+ 
 def brute_force_cow_transport(cowDict, limit):
     #assumes a dictionary with cow names and weights, and a limit as an integer
     tripList = tripSearch(comboGenerator(cowDict), limit)
@@ -129,4 +118,3 @@ def brute_force_cow_transport(cowDict, limit):
         brute_force_cow_transport(newDict, limit)
     else:
         return bruteForceOutput(outputList)
-'''

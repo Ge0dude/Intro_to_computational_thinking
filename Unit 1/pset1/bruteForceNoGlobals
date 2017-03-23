@@ -104,7 +104,10 @@ def bruteForceOutput(outputList):
 
 def brute_force_cow_transport(cowDict, limit):
     #assumes a dictionary with cow names and weights, and a limit as an integer
-    tripList = tripSearch(comboGenerator(cowDict), limit)
+    outputList = [[]for x in range(len(cowDict))]
+    while len(cowDict) > 0:
+        
+        tripList = tripSearch(comboGenerator(cowDict), limit)
     newDict = dataSlicer(tripList)
     if len(newDict) > 0:
         return [tripList, brute_force_cow_transport(newDict, limit)]
