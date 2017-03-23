@@ -6,8 +6,8 @@ Created on Tue Mar 21 16:03:35 2017
 @author: brendontucker
 """
 
-limit= 100
-cows = {'Boo': 20, 'Horns': 25, 'MooMoo': 50, 'Lotus': 40, 'Miss Bella': 25, 'Milkshake': 40}
+limit= 145
+cows = {'Betsy': 39, 'Luna': 41, 'Buttercup': 11, 'Starlight': 54}
 
 def comboGenerator(cowData):
     #assumes cowData is a Python dict
@@ -93,8 +93,18 @@ def dataSlicer(cowList):
     
     return newDictionary
 
-    
-def bruteForce(cowDict, limit):
+def bruteForceOutput(outputList):
+    outputCounter = 0
+    while outputCounter < len(outputList):
+        if outputList[outputCounter] == []:
+            outputList.pop(outputCounter)
+            outputCounter = outputCounter
+        else:
+            outputCounter += 1
+        
+
+'''for teh MOOC grader this varaible must be (cows, limit)'''    
+def brute_force_cow_transport(cowDict, limit):
     #assumes a dictionary with cow names and weights, and a limit as an integer
     tripList = tripSearch(comboGenerator(cowDict), limit)
     for x in outputList:
@@ -105,9 +115,10 @@ def bruteForce(cowDict, limit):
             break
     newDict = dataSlicer(tripList)
     if len(newDict) > 0:
-        bruteForce(newDict, limit)
+        brute_force_cow_transport(newDict, limit)
     else:
-        return outputList
+        return bruteForceOutput(outputList)
+
 
     
     
