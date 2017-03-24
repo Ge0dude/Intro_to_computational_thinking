@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar 23 12:47:58 2017
+
+@author: brendontucker
+
+Deterministically generates and returns an even number between 9 and 21
+
+"""
+
+
+
+
+def deterministicNumber():
+    return 12
