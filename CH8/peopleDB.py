@@ -96,5 +96,32 @@ class UG(Student):
 class Grad(Student): 
     pass
 
+#seems hard to keep track of what is a subclass of what... ? I guess it is
+#supposed to be natural but I just can't seem to think that it would just
+#get complicated and only make sense to the person designing the system. 
+#Even then, I doubt I could keep my own designs straight 
+
+class Grades(object): #why is this not a child of Students? 
+    
+    def __init__(self):
+        self.students = [] 
+        self.grades = {} 
+        self.isSorted = True
+        
+    def addStudent(self, student):
+        if student in self.students:
+            raise ValueError('Duplicate student') #why no else statement?
+        self.students.append(student) 
+        self.grades[student.getIdNum()] = [] 
+        self.isSorted = False
+        
+    
+
+
+
+
+
+
+
 
 
